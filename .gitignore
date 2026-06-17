@@ -8,3 +8,11 @@
 app/build/
 .externalNativeBuild
 .cxx
+
+# Build artifacts staged for distribution
+/dist/
+
+# Release signing secrets — never commit these
+/release.jks
+/keystore.properties
+/.release-keystore-password.txt
