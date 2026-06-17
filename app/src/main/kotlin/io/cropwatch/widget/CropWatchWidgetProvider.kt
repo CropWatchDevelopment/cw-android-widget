@@ -15,20 +15,15 @@ import java.util.concurrent.Executors
 class CropWatchWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(ctx: Context, mgr: AppWidgetManager, ids: IntArray) {
-        renderAll(ctx)
         backgroundRefresh(ctx)
     }
 
     override fun onReceive(ctx: Context, intent: Intent) {
         when (intent.action) {
-            Cw.ACTION_REFRESH -> {
-                renderAll(ctx)
-                backgroundRefresh(ctx)
-            }
+            Cw.ACTION_REFRESH -> backgroundRefresh(ctx)
             Cw.ACTION_CLEAR_FILTERS -> {
                 Session.setLocationFilter(ctx, -1, null)
                 Session.setGroupFilter(ctx, null)
-                renderAll(ctx)
                 backgroundRefresh(ctx)
             }
             else -> super.onReceive(ctx, intent)
@@ -36,12 +31,17 @@ class CropWatchWidgetProvider : AppWidgetProvider() {
     }
 
     private fun backgroundRefresh(ctx: Context) {
+        // Flip into the "busy" state and paint it (spinning, disabled refresh icon)
+        // before kicking off the work; clear it once the fetch settles, win or lose.
+        Session.setRefreshing(ctx, true)
+        renderAll(ctx)
         val pending = goAsync()
         EXEC.execute {
             try {
                 WidgetRepository.refreshBlocking(ctx)
             } catch (_: Exception) {
             } finally {
+                Session.setRefreshing(ctx, false)
                 renderAll(ctx)
                 pending.finish()
             }
@@ -72,9 +72,17 @@ class CropWatchWidgetProvider : AppWidgetProvider() {
             // sign-in are interactive. The brand/logo is intentionally inert.
             rv.setOnClickPendingIntent(R.id.btn_settings, openApp(ctx, 12))
             rv.setOnClickPendingIntent(R.id.btn_sign_in, openApp(ctx, 13))
-            rv.setOnClickPendingIntent(R.id.btn_refresh, refreshIntent(ctx))
             rv.setOnClickPendingIntent(R.id.btn_filter_location, openFilter(ctx, 14, FilterActivity.MODE_LOCATION))
             rv.setOnClickPendingIntent(R.id.btn_filter_group, openFilter(ctx, 15, FilterActivity.MODE_GROUP))
+
+            // Refresh control: while a refresh is in flight, swap the tappable icon
+            // for an indeterminate spinner (the one RemoteViews-safe way to animate
+            // in a widget). With no icon shown and no click wired, it reads as a
+            // disabled, spinning button until the fetch settles.
+            val refreshing = Session.isRefreshing(ctx)
+            rv.setViewVisibility(R.id.refresh_spinner, if (refreshing) View.VISIBLE else View.GONE)
+            rv.setViewVisibility(R.id.btn_refresh, if (refreshing) View.GONE else View.VISIBLE)
+            rv.setOnClickPendingIntent(R.id.btn_refresh, if (refreshing) null else refreshIntent(ctx))
 
             // Tint the filter icons when a filter is active.
             val locName = Session.locationFilterName(ctx)

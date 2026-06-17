@@ -54,13 +54,32 @@
             android:src="@drawable/ic_group_work"
             android:contentDescription="@string/filter_group" />
 
-        <ImageView
-            android:id="@+id/btn_refresh"
+        <!-- Refresh: the static icon and the busy spinner share one slot; the
+             provider toggles between them so a refresh-in-progress spins (and,
+             being a non-clickable ProgressBar, is effectively disabled). -->
+        <FrameLayout
             android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:padding="6dp"
-            android:src="@drawable/ic_refresh"
-            android:contentDescription="@string/refresh" />
+            android:layout_height="32dp">
+
+            <ImageView
+                android:id="@+id/btn_refresh"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_refresh"
+                android:contentDescription="@string/refresh" />
+
+            <ProgressBar
+                android:id="@+id/refresh_spinner"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/cw_text_muted"
+                android:contentDescription="@string/refresh" />
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/btn_settings"

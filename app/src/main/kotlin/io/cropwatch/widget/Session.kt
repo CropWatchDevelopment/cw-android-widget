@@ -27,6 +27,7 @@ object Session {
     private const val K_LOC_ID = "filter_loc_id"
     private const val K_LOC_NAME = "filter_loc_name"
     private const val K_GROUP = "filter_group"
+    private const val K_REFRESHING = "refreshing"
 
     private fun prefs(ctx: Context) =
         ctx.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -43,12 +44,19 @@ object Session {
         prefs(ctx).edit()
             .remove(K_TOKEN).remove(K_EMAIL).remove(K_CACHE)
             .remove(K_LOC_ID).remove(K_LOC_NAME).remove(K_GROUP)
+            .remove(K_REFRESHING)
             .apply()
     }
 
     fun cache(ctx: Context): String? = prefs(ctx).getString(K_CACHE, null)
     fun saveCache(ctx: Context, json: String) {
         prefs(ctx).edit().putString(K_CACHE, json).apply()
+    }
+
+    /** True while a background refresh is in flight (drives the spinning refresh icon). */
+    fun isRefreshing(ctx: Context): Boolean = prefs(ctx).getBoolean(K_REFRESHING, false)
+    fun setRefreshing(ctx: Context, refreshing: Boolean) {
+        prefs(ctx).edit().putBoolean(K_REFRESHING, refreshing).apply()
     }
 
     // ── Filters ──────────────────────────────────────────────
