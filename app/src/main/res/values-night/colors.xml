@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DARK theme (design default) — ported from CropWatch theme-app-dark.css -->
+<resources>
+    <color name="cw_bg_base">#172335</color>
+    <color name="cw_bg_surface">#2d3243</color>
+    <color name="cw_bg_surface_elevated">#2b3c54</color>
+    <color name="cw_bg_elevated">#324661</color>
+    <color name="cw_bg_muted">#31455e</color>
+
+    <color name="cw_text_primary">#f4f8fc</color>
+    <color name="cw_text_secondary">#eaf1f8</color>
+    <color name="cw_text_muted">#c7d3e0</color>
+    <color name="cw_text_disabled">#92a3b7</color>
+
+    <color name="cw_border_muted">#516883</color>
+    <color name="cw_border_default">#647c97</color>
+    <color name="cw_border_strong">#839ab4</color>
+
+    <color name="cw_accent">#00d4aa</color>
+    <color name="cw_accent_text">#4fd1c5</color>
+    <color name="cw_accent_bg">#05433a</color>
+    <color name="cw_tone_primary_border">#00997a</color>
+
+    <color name="cw_success_500">#10b981</color>
+    <color name="cw_tone_success_text">#6ee7b7</color>
+    <color name="cw_tone_success_border">#047857</color>
+    <color name="cw_tone_success_bg">#66064e3b</color>
+
+    <color name="cw_tone_secondary_text">#cbd5e1</color>
+    <color name="cw_tone_secondary_border">#475569</color>
+    <color name="cw_tone_secondary_bg">#661e293b</color>
+
+    <color name="cw_tone_danger_text">#f87171</color>
+    <color name="cw_tone_danger_border">#b91c1c</color>
+    <color name="cw_tone_danger_bg">#667f1d1d</color>
+    <color name="cw_tone_danger_solid_bg">#dd0f0f</color>
+    <color name="cw_tone_danger_solid_text">#ffffff</color>
+
+    <color name="cw_button_info_top">#1177a4</color>
+    <color name="cw_button_info_bottom">#085b85</color>
+    <color name="cw_button_info_border">#188dc3</color>
+    <color name="cw_button_info_text">#f8fcff</color>
+
+    <color name="cw_white">#ffffff</color>
+    <color name="cw_on_accent">#07111d</color>
+    <color name="cw_warning_text">#fbbf24</color>
+    <color name="cw_widget_preview_bg">#0e3b37</color>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <solid android:color="@color/cw_accent_bg"/>
+    <stroke android:width="1dp" android:color="@color/cw_tone_primary_border"/>
+</shape>

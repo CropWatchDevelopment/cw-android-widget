@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.CropWatch" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cw_accent</item>
+        <item name="colorOnPrimary">@color/cw_on_accent</item>
+        <item name="android:windowBackground">@color/cw_bg_base</item>
+        <item name="android:statusBarColor">@color/cw_bg_base</item>
+    </style>
+
+    <!-- Transparent host theme for the widget configuration/login launch -->
+    <style name="Theme.CropWatch.Login" parent="Theme.CropWatch" />
+
+    <!-- Floating picker for the location / group filters -->
+    <style name="Theme.CropWatch.Dialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowMinWidthMinor">92%</item>
+        <item name="android:windowMinWidthMajor">62%</item>
+    </style>
+</resources>
